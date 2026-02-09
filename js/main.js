@@ -1,51 +1,24 @@
-const input = document.getElementById('cityInput');
-const button = document.getElementById('searchBtn');
-const result = document.getElementById('result');
+import { buscarCoordenadas, buscarClima } from './api/weatherService.js';
+import { renderWeather, renderError, renderLoading } from './ui/renderWeather.js';
 
-button.addEventListener('click', () => {
-  const city = input.value.trim();
+const form = document.getElementById('search-form');
+const input = document.getElementById('city-input');
 
-  if (!city) {
-    result.textContent = 'Digite o nome de uma cidade.';
-    return;
-  }
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
 
-  buscarClima(city);
-});
+  const cidade = input.value.trim();
 
-async function buscarClima(cidade) {
-  result.textContent = 'Buscando clima...';
+  if (!cidade) return;
 
   try {
-    // 1️⃣ Buscar latitude e longitude da cidade
-    const geoResponse = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${cidade}&count=1&language=pt&format=json`
-    );
-    const geoData = await geoResponse.json();
+    renderLoading();
 
-    if (!geoData.results) {
-      result.textContent = 'Cidade não encontrada.';
-      return;
-    }
+    const location = await buscarCoordenadas(cidade);
+    const clima = await buscarClima(location.latitude, location.longitude);
 
-    const { latitude, longitude, name } = geoData.results[0];
-
-    // 2️⃣ Buscar temperatura atual
-    const weatherResponse = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-    );
-    const weatherData = await weatherResponse.json();
-
-    const temperatura = weatherData.current_weather.temperature;
-
-    // 3️⃣ Exibir resultado
-    result.innerHTML = `
-      <p>📍 ${name}</p>
-      <p>Temperatura atual:</p>
-      <span>${temperatura}°C</span>
-    `;
+    renderWeather(clima, location.name);
   } catch (error) {
-    result.textContent = 'Erro ao buscar os dados. Tente novamente.';
-    console.error(error);
+    renderError(error.message);
   }
-}
+});

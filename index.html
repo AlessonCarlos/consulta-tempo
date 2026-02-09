@@ -2,27 +2,36 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Clima Agora</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App de Clima</title>
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>🌤️ Clima Agora</h1>
-    <p>Digite o nome da cidade para ver a temperatura atual</p>
+  <main class="app">
+    <h1 class="title">🌤️ Clima Agora</h1>
 
-    <div class="search-box">
-      <input 
-        type="text" 
-        id="cityInput" 
-        placeholder="Ex: Recife"
-      >
-      <button id="searchBtn">Buscar</button>
-    </div>
+    <form id="search-form" class="search">
+      <label for="city-input">Digite o nome da cidade</label>
+      <input
+        id="city-input"
+        type="text"
+        placeholder="Ex: São Paulo"
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Buscar</button>
+    </form>
 
-    <div id="result" class="result"></div>
-  </div>
+    <section id="weather-result" class="weather hidden">
+      <!-- Conteúdo gerado via JS -->
+    </section>
 
-  <script src="js/main.js"></script>
+    <p id="message" class="message"></p>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

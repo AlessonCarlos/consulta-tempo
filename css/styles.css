@@ -1,74 +1,84 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  background: linear-gradient(135deg, #1e293b, #0f172a);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  color: #f8fafc;
 }
 
-.container {
-  background: #ffffff;
-  padding: 30px;
+.app {
+  background: #020617;
+  padding: 2rem;
+  border-radius: 16px;
   width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
+  max-width: 380px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.container h1 {
-  margin-bottom: 10px;
-  color: #333;
+.title {
+  margin-bottom: 1.5rem;
 }
 
-.container p {
-  margin-bottom: 20px;
-  color: #666;
-  font-size: 14px;
-}
-
-.search-box {
+.search {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.search-box input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.search-box button {
-  padding: 10px 16px;
+.search input {
+  padding: 0.7rem;
+  border-radius: 8px;
   border: none;
-  border-radius: 6px;
-  background-color: #4facfe;
-  color: #fff;
+  outline: none;
+}
+
+.search button {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  color: #020617;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.search button:hover {
+  background: #0ea5e9;
+}
+
+.weather {
+  margin-top: 1.5rem;
+}
+
+.weather img {
+  width: 80px;
+}
+
+.weather .temp {
+  font-size: 2.5rem;
   font-weight: bold;
-  transition: background 0.3s;
 }
 
-.search-box button:hover {
-  background-color: #2f8dfd;
+.weather .city {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
 }
 
-.result {
-  font-size: 18px;
-  color: #333;
+.message {
+  margin-top: 1rem;
+  color: #f87171;
 }
 
-.result span {
-  font-size: 28px;
-  font-weight: bold;
+.hidden {
+  display: none;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .app {
+    margin: 1rem;
+  }
 }
