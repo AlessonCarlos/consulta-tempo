@@ -1,20 +1,40 @@
-/**
- * Mapeia códigos do Open-Meteo para ícones
- */
-export function getWeatherIcon(code) {
-  if (code === 0) return 'clear.svg';
-  if (code <= 3) return 'cloud.svg';
-  if (code >= 45 && code <= 48) return 'cloud.svg';
-  if (code >= 51 && code <= 67) return 'rain.svg';
-  if (code >= 71 && code <= 77) return 'snow.svg';
-  if (code >= 95) return 'storm.svg';
-
-  return 'cloud.svg';
+export function parseCities(input) {
+  return input
+    .split(',')
+    .map(city => city.trim())
+    .filter(Boolean);
 }
 
-/**
- * Formata temperatura
- */
-export function formatTemp(temp) {
-  return `${Math.round(temp)}°C`;
+export function mapWeatherIcon(weatherCode) {
+  /*
+    Open-Meteo weathercode:
+    0 = Clear
+    1-3 = Cloudy
+    45,48 = Fog
+    51-67 = Rain
+    71-77 = Snow
+    95-99 = Storm
+  */
+
+  if (weatherCode === 0) return "clear.svg";
+
+  if ([1, 2, 3].includes(weatherCode)) return "cloud.svg";
+
+  if (
+    (weatherCode >= 51 && weatherCode <= 67) ||
+    (weatherCode >= 80 && weatherCode <= 82)
+  ) {
+    return "rain.svg";
+  }
+
+  if (weatherCode >= 71 && weatherCode <= 77) {
+    return "snow.svg";
+  }
+
+  if (weatherCode >= 95) {
+    return "storm.svg";
+  }
+
+  return "cloud.svg";
 }
+
